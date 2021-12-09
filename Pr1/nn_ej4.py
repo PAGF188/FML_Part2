@@ -31,7 +31,7 @@ def ejercicio3(dataset_train,dataset_test):
 
     #sintonizacion
     print("% Sintonización:")
-    V=[1,3,5,7,9,11]; nV=len(V)
+    V=[1,3,5,7,9,11]
     vkappa=zeros(K); kappa_mellor=-Inf; V_mellor=V[0]
 
     print('%10s %10s'%('V','Kappa(%)'))
