@@ -6,6 +6,11 @@ from sklearn.model_selection import *
 from crea_folds import *
 import pdb
 
+from sklearn.model_selection import LeaveOneOut
+from sklearn.model_selection import cross_val_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+
 def ejercicio4(dataset):
 
     x=loadtxt(dataset)
@@ -15,33 +20,40 @@ def ejercicio4(dataset):
 
     # Leave-one-pattern-out
     K_=len(y)
-    mc = zeros([C,C])
-    v_kappa=zeros(K_)
-    v_accuracy = zeros(K_)
+    errores = 0
 
     for i in range(K_):
-        patron_x = reshape(x[i,:],(1,-1))
-        patron_y = array([y[i]])
+        patron_test_x = reshape(x[i,:],(1,-1))
+        patron_test_y = array([y[i]])
         x_nuevo = delete(x,i,0)
         y_nuevo = delete(y,i,0)
 
         med=mean(x_nuevo,0); dev=std(x_nuevo,0)
         x_nuevo=(x_nuevo-med)/dev
-        patron_x=(patron_x-med)/dev
+        patron_test_x=(patron_test_x-med)/dev
 
         modelo = LinearDiscriminantAnalysis().fit(x_nuevo, y_nuevo)
-        z = modelo.predict(patron_x); 
+        z = modelo.predict(patron_test_x); 
 
-        v_kappa[i] = 100*cohen_kappa_score(patron_y,z)
-        v_accuracy[i] = 100*accuracy_score(patron_y,z)
-        #mc+=confusion_matrix(patron_y,z)
+        errores += abs(z-patron_test_y)
 
-    kappa = mean(v_kappa)
-    accuracy = mean(v_accuracy)
-    #mc/=K_
+    #kappa = mean(v_kappa)
+    accuracy = (K_ - errores) / K_
+    print(accuracy)
 
-    print("Kappa: " + str(kappa) + " acc: " + str(accuracy))
-    print("Matriz de confusion: \n", mc)
+    # CON LA AYUDA DE SKLEARN
+
+    x=loadtxt(dataset)
+    y=x[:,0]-1; x=delete(x,0,1)
+
+    scaler = StandardScaler()
+    loo = LeaveOneOut()
+    modelo = LinearDiscriminantAnalysis()
+    metrica = 'accuracy'
+    pipeline = Pipeline([('transformer', scaler), ('estimator', modelo)])
+    scores = cross_val_score(pipeline, x, y, scoring=metrica, cv=loo, n_jobs=-1)
+    
+    print(mean(scores*100))
 
 
 # -------------------------------------------------------------------------------------
