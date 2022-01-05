@@ -49,7 +49,7 @@ Sintonizacion:
         25       47.8
         27       46.6
         29       45.4
-V_mellor=1 kappa=68.63%
+V_mejor=1 kappa=68.63%
 
 Test:
 acc.: 71.88%
@@ -116,7 +116,7 @@ Sintonizacion:
         25       60.8
         27       57.9
         29       54.5
-V_mellor=1 kappa=85.14%
+V_mejor=1 kappa=85.14%
 
 Test:
 acc.: 86.57%

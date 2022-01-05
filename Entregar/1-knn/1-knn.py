@@ -5,12 +5,10 @@ Autor: Pablo García Fernández.
 """
 
 import numpy as np
-from scipy.sparse import data
 from sklearn.neighbors import *
 from sklearn.metrics import *
 from crea_folds import crea_folds
 import matplotlib.pyplot as plt
-import pdb
 
 def pr1(dataset_name, dataset_train, dataset_test):
     """ Función que ejecuta los 4 ejercicios mencionados
@@ -29,6 +27,16 @@ def pr1(dataset_name, dataset_train, dataset_test):
     print(f"   Ejecucion pr1 sobre {dataset_name} dataset!")
     print("=============================================\n")
 
+    ej1_2(dataset_name, dataset_train, dataset_test)
+    ej3(dataset_name, dataset_train, dataset_test)
+    ej4(dataset_name, dataset_train, dataset_test)
+
+def ej1_2(dataset_name, dataset_train, dataset_test):
+    """
+    EJERCICIO 1 Y 2
+    - Ejecutar 1-NN y reportar el accuraccy.
+    - Usar otras métricas: kappa y confusion matrix.
+    """
     # Carga de datos
     data_train = np.loadtxt(dataset_train)
     y_train = data_train[:,-1]
@@ -43,11 +51,11 @@ def pr1(dataset_name, dataset_train, dataset_test):
 
     # Preprocesamiento
     med = np.mean(x_train,0); dev = np.std(x_train,0)
-    x_train_1 = (x_train-med)/dev
-    x_test_1 = (x_test-med)/dev
+    x_train = (x_train-med)/dev
+    x_test = (x_test-med)/dev
 
-    modelo=KNeighborsClassifier(n_neighbors=1).fit(x_train_1, y_train)
-    z = modelo.predict(x_test_1)
+    modelo=KNeighborsClassifier(n_neighbors=1).fit(x_train, y_train)
+    z = modelo.predict(x_test)
     acc = 100 * accuracy_score(y_test, z)
     print(f"EJERCICIO 1 (1-KNN):\nacc: {acc:.2f}%\n")
     print("─────────────────────────────────────────")
@@ -61,8 +69,22 @@ def pr1(dataset_name, dataset_train, dataset_test):
     print(f"kappa: {kappa:.2f}%\ncf = \n{cf}\n")
     print("─────────────────────────────────────────")
 
-    # EJERCICIO 3 ----------------------------------------------------------------
-    # Cross validation 4 folds
+def ej3(dataset_name, dataset_train, dataset_test):
+    """
+    EJERCICIO 3
+    Cross-validation usando 4 folds (k=4)
+    """
+
+    print("EJERCICIO 3 (1-NN + cross validation k=4):")
+
+    # Carga de datos
+    data_train = np.loadtxt(dataset_train)
+    y_train = data_train[:,-1]
+    x_train = data_train[:,0:-1]
+
+    data_test = np.loadtxt(dataset_test)
+    y_test = data_test[:,-1]
+    x_test = data_test[:,0:-1]
 
     # Juntamos train/test sets para cross-validation
     x = np.concatenate([x_train,x_test],axis=0)
@@ -95,12 +117,25 @@ def pr1(dataset_name, dataset_train, dataset_test):
         mc+=confusion_matrix(y,z)
 
     kappa = np.mean(v_kappa); accuracy = np.mean(v_accuracy); mc/=K_
-    print("EJERCICIO 3 (1-NN + cross validation k=4):")
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}\n")
     print("─────────────────────────────────────────")
 
-    # EJERCICIO 4 --------------------------------------------------------
+def ej4(dataset_name, dataset_train, dataset_test):
+    """
+    EJERCICIO 4
+    K-NN con sintonización de k (validation set)
+    """
+
     print("EJERCICIO 4 (K-nn con sintonización de K)")
+
+    # Carga de datos
+    data_train = np.loadtxt(dataset_train)
+    y_train = data_train[:,-1]
+    x_train = data_train[:,0:-1]
+
+    data_test = np.loadtxt(dataset_test)
+    y_test = data_test[:,-1]
+    x_test = data_test[:,0:-1]
 
     # Juntamos train/test sets para cross-validation
     x = np.concatenate([x_train,x_test],axis=0)
@@ -145,7 +180,6 @@ def pr1(dataset_name, dataset_train, dataset_test):
     plt.savefig("sintonizacionV_" + dataset_name)
     plt.show()
    
-    
     #test
     print("Test:")
     C = len(np.unique(y))
