@@ -21,7 +21,7 @@ def pr2(dataset_name, dataset_train=None, dataset_test=None):
     - ej2: Calcular acc., kappa y cm usando LDA y todo el dataset (hepatitis, wine).
     - ej3: Repetir con cross-validation k=4
     - ej4: Repetir con LOOCV
-    - ej5: Usar LDA para LBP y CooCu 
+    - ej5: Usar LDA en LBP y CooCu datasets
 
     dataset_name se emplea para hepatitis y wine datasets (donde no hay 
     separacion entre train y test). dataset_train y dataset_test se emplea
@@ -33,6 +33,7 @@ def pr2(dataset_name, dataset_train=None, dataset_test=None):
     print("=============================================\n")
 
     # EJERCICIO 5 -----------------------------------------------------------------
+    # LDA básico sobre LBP y CooCU
     if dataset_name == 'LBP' or dataset_name == 'Coocur':
         print(f"EJERCICIO 5 (LDA sobre {dataset_name} dataset)")
         print("─────────────────────────────────────────")
@@ -136,6 +137,7 @@ def pr2(dataset_name, dataset_train=None, dataset_test=None):
         K_=len(y)
         errores = 0
 
+        # K_ iteraciones. En cada una entrenamos con todos los patrones menos con el i-esimo.
         for i in range(K_):
             patron_test_x = np.reshape(x[i,:],(1,-1))
             patron_test_y = np.array([y[i]])
@@ -163,8 +165,10 @@ def pr2(dataset_name, dataset_train=None, dataset_test=None):
         pipeline = Pipeline([('transformer', scaler), ('estimator', modelo)])
         scores = cross_val_score(pipeline, x, y, scoring=metrica, cv=loo, n_jobs=-1)
         acc = np.mean(scores*100)
-        print(f"acc. (con sklearn): {acc:.2f}%")
+        print(f"acc. (con sklearn): {acc:.2f}%")  # mismo resultado
         print("─────────────────────────────────────────\n\n\n")
+
+
 
 # Ejecutamos
 pr2("wine.data")
