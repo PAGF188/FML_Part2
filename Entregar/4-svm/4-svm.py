@@ -30,7 +30,7 @@ def pr4(dataset_name, dataset_train=None, dataset_test=None):
     # EJERCICIO 2,3 (sobre wine y hepatitis)
     else:
         ej2(dataset_name)
-
+        ej3(dataset_name)
 
 def ej2(dataset_name):
     """
@@ -60,6 +60,40 @@ def ej2(dataset_name):
         f1 = 100 * f1_score(y,z)
         print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")            
     print("─────────────────────────────────────────")
+
+def ej3(dataset_name):
+    """
+    EJERCICIO 3:
+    Calcular acc., kappa y cm usando SVM (gaussian kernel) sobre todo el dataset (hepatitis, wine).
+    Default params: reg=100, sigma = 1/n
+    """
+
+    print("EJERCICIO 3 (SVM gaussian kernel sobre dataset completo train/test):")
+    datos = np.loadtxt('../data/' + dataset_name)
+
+    # Preprocesamiento
+    y=datos[:,0]-1; x=np.delete(datos,0,1)
+    x = (x-np.mean(x,0))/np.std(x,0)
+    C = len(np.unique(y))
+
+    # Entrenamiento
+    modelo=SVC(C=100, kernel ='rbf', gamma= 1/x.shape[1], verbose=False).fit(x,y)
+
+    # Test
+    z = modelo.predict(x)
+    kappa = 100 * cohen_kappa_score(y,z); acc = 100 * accuracy_score(y,z)
+    cf=confusion_matrix(y,z)
+    print(f"acc.: {acc:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{cf}\n")
+    # Si es un problema de clasificación binaria reportamos más métricas.
+    if C==2:
+        prec = 100 * precision_score(y,z); rec = 100 * recall_score(y,z)
+        f1 = 100 * f1_score(y,z)
+        print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")            
+    print("─────────────────────────────────────────")
+
+
+
+
 
 # Ejecutamos
 pr4("wine.data")
