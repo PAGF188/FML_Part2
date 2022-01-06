@@ -85,11 +85,13 @@ for h in range(1,H+1):
         kappa_med=mean(vkappa)
         for i in range(h):
             print('%10i'%(neurons[i]),end='')
-        print('\t\t\t%10.1f'%(100*kappa_med))
+        for i in range(h+1, H+1):
+            print('%10s'%'',end='')
+        print('%10.1f'%(100*kappa_med))
         if kappa_med>kappa_mellor:
             kappa_mellor=kappa_med
             neurons_mellor = neurons
-
+print('Mejor arquitectura'); print(neurons_mellor[: -1])
 print('kappa=%.2f%%'%(100*kappa_mellor))
 
 #test
