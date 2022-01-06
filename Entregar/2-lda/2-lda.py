@@ -50,7 +50,7 @@ def ej2(dataset_name):
     Calcular acc., kappa y cm usando LDA y todo el dataset (hepatitis, wine).
     """
 
-    print("EJERCICIO 2 (LDA whole dataset):")
+    print("EJERCICIO 2 (LDA dataset completo train/test):")
     datos = np.loadtxt('../data/' + dataset_name)
 
     # Preprocesamiento
@@ -70,7 +70,7 @@ def ej2(dataset_name):
     if C==2:
         prec = 100 * precision_score(y,z); rec = 100 * recall_score(y,z)
         f1 = 100 * f1_score(y,z)
-        print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1}%\n")            
+        print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")            
     print("─────────────────────────────────────────")
 
 

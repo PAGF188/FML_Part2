@@ -177,7 +177,7 @@ def ej4(dataset_name, dataset_train, dataset_test):
     plt.title(f'dataset: {dataset_name}, V_mejor= {V_mellor} kappa={100*kappa_mellor:.2f}%')
     plt.xticks(V); plt.legend(); plt.grid(True)
     plt.xlabel('V'); plt.ylabel('kappa (%)')
-    plt.savefig("sintonizacionV_" + dataset_name)
+    plt.savefig("sintonizacionV_" + dataset_name + ".png")
     plt.show()
    
     #test
@@ -201,7 +201,7 @@ def ej4(dataset_name, dataset_train, dataset_test):
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}\n\n\n")
 
 
-# Ejecutamos
+# Ejecutamos pr1 sobre ambos sets
 pr1("Coocur", '../data/trainCoocur.dat', '../data/testCoocur.dat')
 pr1("LBP", '../data/trainLBP.dat', '../data/testLBP.dat')
 

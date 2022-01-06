@@ -3,6 +3,8 @@ Practica 3: Exercises of ANN classifiers
 Autor: Pablo García Fernández.
 
 """
+
+import matplotlib.pyplot as plt
 from ELM import Elm
 from crea_folds import crea_folds
 import numpy as np
@@ -126,24 +128,33 @@ def ej3(dataset_name):
 
     #sintonizacion
     print("Sintonizacion:")
-    IK=40
-    vkappa=np.zeros(K); kappa_mellor=-np.Inf
+    IK = np.arange(5, 45, 5)
+    vkappa=np.zeros(K); kappa_mellor=-np.Inf; 
+    kappa_sintonizacion = []
     neurons_mellor = 5
     print('%10s %10s'%('IK','Kappa(%)'))
 
-    for i in range(5,IK+1,5):
+    for i in IK:
         for k in range(K):
             modelo = Elm(hidden_units=i, x=tx[k], y=ty[k])
-            _, _ = modelo.fit()
+            _ = modelo.fit()
             z=modelo.predict(vx[k])
             vkappa[k]=cohen_kappa_score(vy[k],z)
 
-        kappa_med=np.mean(vkappa)
+        kappa_med=np.mean(vkappa); kappa_sintonizacion.append(kappa_med)
         print('%10i %10.1f'%(i,100*kappa_med))
         if kappa_med>kappa_mellor:
             kappa_mellor = kappa_med
             neurons_mellor = i
     print(f"Mejor nº neuronas ocultas: {neurons_mellor}, kappa={100*kappa_mellor:.2f}%\n")
+
+     # Grafico de sintonizacion:
+    plt.plot(IK, kappa_sintonizacion,marker='o', label='Evolucion del kappa con V')
+    plt.title(f'dataset: {dataset_name}, V_mejor= {neurons_mellor} kappa={100*kappa_mellor:.2f}%')
+    plt.xticks(IK); plt.legend(); plt.grid(True)
+    plt.xlabel('V'); plt.ylabel('kappa (%)')
+    plt.savefig("sintonizacionIK_" + dataset_name + ".png")
+    plt.show()
 
     #test
     print("Test:")
@@ -153,7 +164,7 @@ def ej3(dataset_name):
         tx[k]=np.vstack((tx[k],vx[k]))
         ty[k]=np.concatenate((ty[k],vy[k]))
         modelo = Elm(hidden_units=neurons_mellor, x=tx[k], y=ty[k])
-        _, _ = modelo.fit()
+        _ = modelo.fit()
         z=modelo.predict(sx[k]); y=sy[k]
         vkappa[k]=100*cohen_kappa_score(y,z)
         v_accuracy[k] = 100*accuracy_score(y,z)
