@@ -148,9 +148,9 @@ def ej3(dataset_name):
             neurons_mellor = i
     print(f"Mejor nº neuronas ocultas: {neurons_mellor}, kappa={100*kappa_mellor:.2f}%\n")
 
-     # Grafico de sintonizacion:
-    plt.plot(IK, kappa_sintonizacion,marker='o', label='Evolucion del kappa con V')
-    plt.title(f'dataset: {dataset_name}, V_mejor= {neurons_mellor} kappa={100*kappa_mellor:.2f}%')
+    # Grafico de sintonizacion:
+    plt.plot(IK, kappa_sintonizacion,marker='o', label='Evolucion del kappa con IK')
+    plt.title(f'dataset: {dataset_name}, IK_mejor= {neurons_mellor} kappa={100*kappa_mellor:.2f}%')
     plt.xticks(IK); plt.legend(); plt.grid(True)
     plt.xlabel('V'); plt.ylabel('kappa (%)')
     plt.savefig("sintonizacionIK_" + dataset_name + ".png")
