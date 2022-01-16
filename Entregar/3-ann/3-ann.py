@@ -61,7 +61,7 @@ def ej2(dataset_name):
     # Probamos diferentes valores de capas y neuronas. Para cada configuracion imprimimos kappa
     H=3
     IK=30
-    kappa_mellor=-np.Inf; neurons_mellor = None
+    kappa_mellor=-np.Inf
     v_kappa = []; v_acc = []; v_cf = []
     if C==2:
         v_prec = []; v_rec = []; v_f1 = []
@@ -89,7 +89,7 @@ def ej2(dataset_name):
                 print('%10s '%'',end='')
             print('%10.1f'%(kappa))
             if kappa>kappa_mellor:
-                kappa_mellor=kappa; neurons_mellor=neurons; indice_mejor=indice
+                kappa_mellor=kappa; indice_mejor=indice
             indice +=1
 
     # Para la configuración que mejor funciona -> pintamos accuracy y confusion matrix (si lo hacemos para todas el reporte sería muy grande)
@@ -118,7 +118,7 @@ def ej2(dataset_name):
 
     # Probamos diferentes valores de neuronas. Para cada configuracion imprimimos kappa
     IK = np.arange(5, 45, 5)
-    kappa_mellor=-np.Inf; neurons_mellor = 5
+    kappa_mellor=-np.Inf
     v_kappa = []; v_acc = []; v_cf = []
     if C==2:
         v_prec = []; v_rec = []; v_f1 = []
@@ -138,8 +138,7 @@ def ej2(dataset_name):
 
         print('%10i %10.1f'%(i,kappa))
         if kappa>kappa_mellor:
-            kappa_mellor = kappa; neurons_mellor = i
-            indice_mejor=indice
+            kappa_mellor = kappa; indice_mejor=indice
         indice +=1
 
     # Para la configuración que mejor funciona -> pintamos accuracy y confusion matrix (si lo hacemos para todas el reporte sería muy grande)
@@ -147,7 +146,7 @@ def ej2(dataset_name):
 
     cf_image = sns.heatmap(v_cf[indice_mejor], cmap='Blues', annot=True, fmt='g')
     figure = cf_image.get_figure()    
-    figure.savefig('MLP_ej2_' + dataset_name + '.png'); plt.clf()
+    figure.savefig('ELM_ej2_' + dataset_name + '.png'); plt.clf()
 
     # Si es un problema de clasificación binaria reportamos más métricas.
     if C==2:
