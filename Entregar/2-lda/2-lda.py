@@ -2,6 +2,12 @@
 Practica 2: Exercises of LDA classifier
 Autor: Pablo García Fernández.
 
+Requirements
+------------
+-Numpy
+-Scikit-learn
+-Matplotlib
+-Seaborn (to plot confusion matrix as image)
 """
 
 import numpy as np
@@ -14,6 +20,8 @@ from sklearn.model_selection import LeaveOneOut
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def pr2(dataset_name, dataset_train=None, dataset_test=None):
     """ Función que ejecuta los 4 ejercicios mencionados
@@ -66,6 +74,11 @@ def ej2(dataset_name):
     kappa = 100 * cohen_kappa_score(y,z); acc = 100 * accuracy_score(y,z)
     cf=confusion_matrix(y,z)
     print(f"acc.: {acc:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{cf}\n")
+
+    cf_image = sns.heatmap(cf, cmap='Blues', annot=True, fmt='g')
+    figure = cf_image.get_figure()    
+    figure.savefig('LDA_ej2_' + dataset_name + '.png'); plt.clf()
+
     # Si es un problema de clasificación binaria reportamos más métricas.
     if C==2:
         prec = 100 * precision_score(y,z); rec = 100 * recall_score(y,z)
@@ -102,20 +115,30 @@ def ej3(dataset_name):
     mc = np.zeros([C,C])
     v_kappa=np.zeros(K_)
     v_accuracy = np.zeros(K_)
-
+    prec_v = np.zeros(K_); rec_v = np.zeros(K_); f1_v = np.zeros(K_)
     for k in range(K_):
         modelo = LinearDiscriminantAnalysis().fit(tx[k],ty[k])
         z = modelo.predict(sx[k]); y=sy[k]
         v_kappa[k] = 100*cohen_kappa_score(y,z)
         v_accuracy[k] = 100*accuracy_score(y,z)
         mc+=confusion_matrix(y,z)
+        # Si es un problema de clasificación binaria reportamos más métricas.
+        if C==2:
+            prec_v[k] = 100 * precision_score(y,z)
+            rec_v[k] = 100 * recall_score(y,z)
+            f1_v[k] = 100 * f1_score(y,z)
 
     kappa = np.mean(v_kappa); accuracy = np.mean(v_accuracy); mc/=K_
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}\n")
+
+    cf_image = sns.heatmap(mc, cmap='Blues', annot=True, fmt='g')
+    figure = cf_image.get_figure()    
+    figure.savefig('LDA_ej3_' + dataset_name + '.png'); plt.clf()
+
     # Si es un problema de clasificación binaria reportamos más métricas.
     if C==2:
-        prec = 100 * precision_score(y,z); rec = 100 * recall_score(y,z)
-        f1 = 100 * f1_score(y,z)
+        prec =np.mean(prec_v); rec = np.mean(rec_v)
+        f1 = np.mean(f1_v)
         print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")            
     print("─────────────────────────────────────────")
 
@@ -196,6 +219,11 @@ def ej5(dataset_name, dataset_train, dataset_test):
     kappa = 100 * cohen_kappa_score(y_test,z)
     acc = 100 * accuracy_score(y_test,z)
     cf=confusion_matrix(y_test,z)
+
+    cf_image = sns.heatmap(cf, cmap='Blues')
+    figure = cf_image.get_figure()    
+    figure.savefig('LDA_ej5_' + dataset_name + '.png'); plt.clf()
+
     print(f"acc.: {acc:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{cf}\n")
     print("─────────────────────────────────────────\n\n\n")
         

@@ -2,6 +2,12 @@
 Practica 1: Model selection and evaluation
 Autor: Pablo García Fernández.
 
+Requirements
+------------
+-Numpy
+-Scikit-learn
+-Matplotlib
+-Seaborn (to plot confusion matrix as image)
 """
 
 import numpy as np
@@ -9,6 +15,7 @@ from sklearn.neighbors import *
 from sklearn.metrics import *
 from crea_folds import crea_folds
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def pr1(dataset_name, dataset_train, dataset_test):
     """ Función que ejecuta los 4 ejercicios mencionados
@@ -64,6 +71,9 @@ def ej1_2(dataset_name, dataset_train, dataset_test):
     # otra metricas
     kappa = 100 * cohen_kappa_score(y_test,z)
     cf=confusion_matrix(y_test,z)
+    cf_image = sns.heatmap(cf, cmap='Blues')
+    figure = cf_image.get_figure()    
+    figure.savefig('1NN_cm_' + dataset_name + '.png'); plt.clf()
 
     print("EJERCICIO 2 (otras metricas):")
     print(f"kappa: {kappa:.2f}%\ncf = \n{cf}\n")
@@ -117,6 +127,11 @@ def ej3(dataset_name, dataset_train, dataset_test):
         mc+=confusion_matrix(y,z)
 
     kappa = np.mean(v_kappa); accuracy = np.mean(v_accuracy); mc/=K_
+
+    cf_image = sns.heatmap(mc, cmap='Blues')
+    figure = cf_image.get_figure()    
+    figure.savefig('1NN_4folds_cm_' + dataset_name + '.png'); plt.clf()
+
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}\n")
     print("─────────────────────────────────────────")
 
@@ -178,7 +193,7 @@ def ej4(dataset_name, dataset_train, dataset_test):
     plt.xticks(V); plt.legend(); plt.grid(True)
     plt.xlabel('V'); plt.ylabel('kappa (%)')
     plt.savefig("sintonizacionV_" + dataset_name + ".png")
-    plt.show()
+    plt.show(); plt.clf()
    
     #test
     print("Test:")
@@ -198,6 +213,11 @@ def ej4(dataset_name, dataset_train, dataset_test):
     kappa = np.mean(vkappa)
     accuracy = np.mean(v_accuracy)
     mc/=K
+
+    cf_image = sns.heatmap(mc, cmap='Blues')
+    figure = cf_image.get_figure()    
+    figure.savefig('K-NN_4folds_cm_' + dataset_name + '.png'); plt.clf()
+
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}\n\n\n")
 
 
