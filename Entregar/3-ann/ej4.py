@@ -18,7 +18,7 @@ import warnings
 warnings.filterwarnings("ignore")
 import seaborn as sns
 import matplotlib.pyplot as plt
-import time
+from time import perf_counter
 import pdb
 
 
@@ -51,9 +51,10 @@ def ej4(dataset_name, dataset_train, dataset_test):
     y = np.concatenate([y_train,y_test])
     C = len(np.unique(y))
 
-    # k-NN con ajuste de k.
     K = 4
     [tx,ty,vx,vy,sx,sy] = crea_folds(x,y,K)
+
+    inicio_tiempo = perf_counter()
 
     #preprocesamiento
     for k in range(K):
@@ -105,12 +106,15 @@ def ej4(dataset_name, dataset_train, dataset_test):
         v_accuracy[k] = 100*accuracy_score(y,z)
         mc+=confusion_matrix(y,z)
 
+    tiempo_total = perf_counter() - inicio_tiempo 
     kappa=np.mean(vkappa); mc/=K; accuracy = np.mean(v_accuracy)
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}")
+    print(f"Tiempo total: {tiempo_total}")
 
     cf_image = sns.heatmap(mc, cmap='Blues', annot=True, fmt='g')
     figure = cf_image.get_figure()    
     figure.savefig('MLP_ej4_' + dataset_name + '.png'); plt.clf()
+    
     print("─────────────────────────────────────────\n\n\n")
 
 
@@ -132,10 +136,11 @@ def ej4(dataset_name, dataset_train, dataset_test):
     y = np.concatenate([y_train,y_test])
     C = len(np.unique(y))
 
-    # k-NN con ajuste de k.
     K = 4
     [tx,ty,vx,vy,sx,sy] = crea_folds(x,y,K)
 
+    inicio_tiempo = perf_counter()
+    
     #preprocesamiento
     for k in range(K):
         med=np.mean(tx[k],0); dev=np.std(tx[k],0)
@@ -187,9 +192,11 @@ def ej4(dataset_name, dataset_train, dataset_test):
         v_accuracy[k] = 100*accuracy_score(y,z)
         mc+=confusion_matrix(y,z)
 
+    tiempo_total = perf_counter() - inicio_tiempo 
     kappa=np.mean(vkappa); mc/=K; accuracy = np.mean(v_accuracy)
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}")
-  
+    print(f"Tiempo total: {tiempo_total}")
+
     cf_image = sns.heatmap(mc, cmap='Blues', annot=True, fmt='g')
     figure = cf_image.get_figure()    
     figure.savefig('ELM_ej4_' + dataset_name + '.png'); plt.clf()
