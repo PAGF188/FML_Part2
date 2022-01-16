@@ -1,5 +1,5 @@
 """
-Basado en: https://github.com/5663015/elm
+Softmax function extraida de: https://github.com/5663015/elm
 """
 import numpy as np
 from scipy.linalg import pinv2

@@ -2,6 +2,13 @@
 Practica 3: Exercises of ANN classifiers
 Autor: Pablo García Fernández.
 
+Requirements
+------------
+-Numpy
+-Scikit-learn
+-Matplotlib
+-Seaborn (to plot confusion matrix as image)
+
 """
 
 import matplotlib.pyplot as plt
@@ -18,26 +25,20 @@ import matplotlib.pyplot as plt
 
 import pdb
 
-def pr3(dataset_name, dataset_train=None, dataset_test=None):
+def pr3(dataset_name):
     """ Función que ejecuta los 4 ejercicios mencionados
     en la practica 2.
     - ej2: Calcular acc., kappa y cm usando MLP y ELM sobre todo el dataset (hepatitis, wine).
     - ej3: Repetir con cross-validation k=4
-    - ej4: Usar MLP y ELM en LBP y CooCu datasets
+    - ej4: Esta en el archivo ej4.py
     """
 
     print("=============================================")
     print(f"   Ejecucion pr3 sobre {dataset_name} dataset!")
     print("=============================================\n")
 
-    # EJERCICIO 4 -----------------------------------------------------------------
-    # 
-    if dataset_name == 'LBP' or dataset_name == 'Coocur':
-        pass
-    # EJERCICIO 2,3 (sobre wine y hepatitis)
-    else:
-        ej2(dataset_name)
-        ej3(dataset_name)
+    ej2(dataset_name)
+    ej3(dataset_name)
 
 
 def ej2(dataset_name):
