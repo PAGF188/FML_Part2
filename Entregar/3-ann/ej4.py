@@ -109,9 +109,9 @@ def ej4(dataset_name, dataset_train, dataset_test):
     tiempo_total = perf_counter() - inicio_tiempo 
     kappa=np.mean(vkappa); mc/=K; accuracy = np.mean(v_accuracy)
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}")
-    print(f"Tiempo total: {tiempo_total}")
+    print(f"Tiempo total: {tiempo_total:.2f}")
 
-    cf_image = sns.heatmap(mc, cmap='Blues', annot=True, fmt='g')
+    cf_image = sns.heatmap(mc, cmap='Blues')
     figure = cf_image.get_figure()    
     figure.savefig('MLP_ej4_' + dataset_name + '.png'); plt.clf()
     
@@ -195,9 +195,9 @@ def ej4(dataset_name, dataset_train, dataset_test):
     tiempo_total = perf_counter() - inicio_tiempo 
     kappa=np.mean(vkappa); mc/=K; accuracy = np.mean(v_accuracy)
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}")
-    print(f"Tiempo total: {tiempo_total}")
+    print(f"Tiempo total: {tiempo_total:.2f}")
 
-    cf_image = sns.heatmap(mc, cmap='Blues', annot=True, fmt='g')
+    cf_image = sns.heatmap(mc, cmap='Blues')
     figure = cf_image.get_figure()    
     figure.savefig('ELM_ej4_' + dataset_name + '.png'); plt.clf()
 
