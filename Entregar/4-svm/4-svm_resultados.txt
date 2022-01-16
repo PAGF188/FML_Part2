@@ -5,20 +5,22 @@
 EJERCICIO 2 (SVM  kernel lineal dataset completo train/test):
 acc.: 100.00%
 kappa: 100.00%
-cf = 
+cf =
 [[59  0  0]
  [ 0 71  0]
  [ 0  0 48]]
 
+Tiempo total: 0.0017
 ─────────────────────────────────────────────────
 EJERCICIO 3 (SVM gaussian kernel sobre dataset completo train/test):
 acc.: 100.00%
 kappa: 100.00%
-cf = 
+cf =
 [[59  0  0]
  [ 0 71  0]
  [ 0  0 48]]
 
+Tiempo total: 0.0022
 ─────────────────────────────────────────────────
 EJERCICIO 4_1 (SVM cross_validation, linear kernel, K=4):
 Sintonizacion:
@@ -39,10 +41,11 @@ V_mejor=0 kappa=95.63%
 Test:
 acc.: 96.94%
 kappa: 95.30%
-cf = 
+cf =
 [[16.75  0.25  0.  ]
  [ 0.   19.5   0.5 ]
  [ 0.    0.75 11.25]]
+Tiempo test: 0.0044
 ─────────────────────────────────────────────────
 EJERCICIO 4_2 (SVM cross_validation, linear kernel, K=10):
 Sintonizacion:
@@ -63,10 +66,11 @@ V_mejor=0 kappa=98.14%
 Test:
 acc.: 99.41%
 kappa: 99.09%
-cf = 
+cf =
 [[14.   0.   0. ]
  [ 0.   7.8  0.2]
  [ 0.   0.  12. ]]
+Tiempo test: 0.0110
 ─────────────────────────────────────────────────
 EJERCICIO 4_3 (SVM cross_validation, gaussian kernel, K=4):
 Sintonizacion:
@@ -164,10 +168,11 @@ L_mejor=2, G_mejor=0.0078125, kappa=97.37%
 Test:
 acc.: 98.47%
 kappa: 97.67%
-cf = 
+cf =
 [[17.    0.    0.  ]
  [ 0.   19.25  0.75]
  [ 0.    0.   12.  ]]
+Tiempo test: 0.0058
 ─────────────────────────────────────────────────
 EJERCICIO 4_4 (SVM cross_validation, gaussian kernel, K=10):
 Sintonizacion:
@@ -265,10 +270,11 @@ L_mejor=0.5, G_mejor=0.03125, kappa=98.08%
 Test:
 acc.: 99.12%
 kappa: 98.65%
-cf = 
+cf =
 [[13.8  0.2  0. ]
  [ 0.   7.9  0.1]
  [ 0.   0.  12. ]]
+Tiempo test: 0.0131
 ─────────────────────────────────────────────────
 =============================================
    Ejecucion pr3 sobre hepatitis.data dataset!
@@ -277,7 +283,7 @@ cf =
 EJERCICIO 2 (SVM  kernel lineal dataset completo train/test):
 acc.: 89.68%
 kappa: 68.50%
-cf = 
+cf =
 [[ 24   8]
  [  8 115]]
 
@@ -285,11 +291,12 @@ precision.: 93.50%
 recall: 93.50%
 f1 = 93.50%
 
+Tiempo total: 0.0047
 ─────────────────────────────────────────────────
 EJERCICIO 3 (SVM gaussian kernel sobre dataset completo train/test):
 acc.: 100.00%
 kappa: 100.00%
-cf = 
+cf =
 [[ 32   0]
  [  0 123]]
 
@@ -297,6 +304,7 @@ precision.: 100.00%
 recall: 100.00%
 f1 = 100.00%
 
+Tiempo total: 0.0060
 ─────────────────────────────────────────────────
 EJERCICIO 4_1 (SVM cross_validation, linear kernel, K=4):
 Sintonizacion:
@@ -317,9 +325,14 @@ V_mejor=0 kappa=33.29%
 Test:
 acc.: 79.27%
 kappa: 28.28%
-cf = 
+cf =
 [[ 3.25  4.75]
  [ 3.75 29.25]]
+precision.: 86.47%
+recall: 88.64%
+f1 = 87.29%
+
+Tiempo test: 0.0136
 ─────────────────────────────────────────────────
 EJERCICIO 4_2 (SVM cross_validation, linear kernel, K=10):
 Sintonizacion:
@@ -340,9 +353,14 @@ V_mejor=8 kappa=28.11%
 Test:
 acc.: 80.50%
 kappa: 47.99%
-cf = 
+cf =
 [[ 3.1  1.9]
  [ 2.  13. ]]
+precision.: 87.92%
+recall: 86.67%
+f1 = 86.81%
+
+Tiempo test: 0.0574
 ─────────────────────────────────────────────────
 EJERCICIO 4_3 (SVM cross_validation, gaussian kernel, K=4):
 Sintonizacion:
@@ -440,9 +458,14 @@ L_mejor=8, G_mejor=0.03125, kappa=50.63%
 Test:
 acc.: 85.37%
 kappa: 54.08%
-cf = 
+cf =
 [[ 5.25  2.75]
  [ 3.25 29.75]]
+precision.: 91.99%
+recall: 90.15%
+f1 = 90.73%
+
+Tiempo test: 0.0119
 ─────────────────────────────────────────────────
 EJERCICIO 4_4 (SVM cross_validation, gaussian kernel, K=10):
 Sintonizacion:
@@ -540,15 +563,11 @@ L_mejor=32, G_mejor=0.0078125, kappa=45.48%
 Test:
 acc.: 80.50%
 kappa: 46.84%
-cf = 
+cf =
 [[ 2.9  2.1]
  [ 1.8 13.2]]
-─────────────────────────────────────────────────
-=============================================
-   Ejecucion pr3 sobre Coocur dataset!
-=============================================
+precision.: 86.49%
+recall: 88.00%
+f1 = 87.08%
 
-=============================================
-   Ejecucion pr3 sobre LBP dataset!
-=============================================
-
+Tiempo test: 0.0268

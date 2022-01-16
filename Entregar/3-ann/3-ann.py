@@ -27,7 +27,7 @@ import pdb
 
 def pr3(dataset_name):
     """ Función que ejecuta los 4 ejercicios mencionados
-    en la practica 2.
+    en la practica 3.
     - ej2: Calcular acc., kappa y cm usando MLP y ELM sobre todo el dataset (hepatitis, wine).
     - ej3: Repetir con cross-validation k=4
     - ej4: Esta en el archivo ej4.py

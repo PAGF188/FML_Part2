@@ -1,5 +1,5 @@
 """
-Practica 3: Exercises of SVM classifier
+Practica 4: Exercises of SVM classifier
 Autor: Pablo García Fernández.
 
 Requirements
@@ -8,10 +8,10 @@ Requirements
 -Scikit-learn
 -Matplotlib
 -Seaborn (to plot confusion matrix as image)
+-Time (measure time)
 
 """
 
-from re import I
 import matplotlib.pyplot as plt
 from crea_folds import crea_folds
 import numpy as np
@@ -23,7 +23,7 @@ import pdb
 
 def pr4(dataset_name):
     """ Función que ejecuta los 5 ejercicios mencionados
-    en la practica 2.
+    en la practica 4.
     - ej2: Calcular acc., kappa y cm usando SVM (linear kernel) sobre todo el dataset (hepatitis, wine).
     - ej3: Repetir con kernel gaussiano (L=100, sigma=1/n)
     - ej4: Repetir con cross validation (k=4, k=10)
