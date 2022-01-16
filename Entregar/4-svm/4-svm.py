@@ -2,16 +2,25 @@
 Practica 3: Exercises of SVM classifier
 Autor: Pablo García Fernández.
 
+Requirements
+------------
+-Numpy
+-Scikit-learn
+-Matplotlib
+-Seaborn (to plot confusion matrix as image)
+
 """
 
+from re import I
 import matplotlib.pyplot as plt
 from crea_folds import crea_folds
 import numpy as np
 from sklearn.metrics import *
 from sklearn.svm import *
+from time import perf_counter
 import pdb
 
-def pr4(dataset_name, dataset_train=None, dataset_test=None):
+def pr4(dataset_name):
     """ Función que ejecuta los 5 ejercicios mencionados
     en la practica 2.
     - ej2: Calcular acc., kappa y cm usando SVM (linear kernel) sobre todo el dataset (hepatitis, wine).
@@ -24,15 +33,9 @@ def pr4(dataset_name, dataset_train=None, dataset_test=None):
     print(f"   Ejecucion pr3 sobre {dataset_name} dataset!")
     print("=============================================\n")
 
-    # EJERCICIO 4 -----------------------------------------------------------------
-    # 
-    if dataset_name == 'LBP' or dataset_name == 'Coocur':
-        pass
-    # EJERCICIO 2,3 (sobre wine y hepatitis)
-    else:
-        ej2(dataset_name)
-        ej3(dataset_name)
-        ej4(dataset_name)
+    ej2(dataset_name)
+    ej3(dataset_name)
+    ej4(dataset_name)
 
 def ej2(dataset_name):
     """
@@ -48,6 +51,7 @@ def ej2(dataset_name):
     x = (x-np.mean(x,0))/np.std(x,0)
     C = len(np.unique(y))
 
+    t_inicio = perf_counter()
     # Entrenamiento
     modelo=SVC(kernel = 'linear', verbose=False).fit(x,y)
 
@@ -60,7 +64,9 @@ def ej2(dataset_name):
     if C==2:
         prec = 100 * precision_score(y,z); rec = 100 * recall_score(y,z)
         f1 = 100 * f1_score(y,z)
-        print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")            
+        print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")     
+    tiempo_total = perf_counter() - t_inicio   
+    print("Tiempo total: %.4f"%(tiempo_total))
     print("─────────────────────────────────────────────────")
 
 def ej3(dataset_name):
@@ -79,6 +85,7 @@ def ej3(dataset_name):
     C = len(np.unique(y))
 
     # Entrenamiento
+    t_inicio = perf_counter()
     modelo=SVC(C=100, kernel ='rbf', gamma= 1/x.shape[1], verbose=False).fit(x,y)
 
     # Test
@@ -90,7 +97,9 @@ def ej3(dataset_name):
     if C==2:
         prec = 100 * precision_score(y,z); rec = 100 * recall_score(y,z)
         f1 = 100 * f1_score(y,z)
-        print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")            
+        print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")   
+    tiempo_total =  perf_counter() - t_inicio   
+    print("Tiempo total: %.4f"%(tiempo_total))         
     print("─────────────────────────────────────────────────")
 
 def ej4(dataset_name):
@@ -250,7 +259,7 @@ def ej4_gaussian_kernel_cross_validation(dataset_name, K):
 # Ejecutamos
 pr4("wine.data")
 pr4("hepatitis.data")
-pr4("Coocur", '../data/trainCoocur.dat', '../data/testCoocur.dat')
-pr4("LBP", '../data/trainLBP.dat', '../data/testLBP.dat')
+#pr4("Coocur", '../data/trainCoocur.dat', '../data/testCoocur.dat')
+#pr4("LBP", '../data/trainLBP.dat', '../data/testLBP.dat')
 
 
