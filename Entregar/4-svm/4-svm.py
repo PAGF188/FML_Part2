@@ -18,6 +18,7 @@ import numpy as np
 from sklearn.metrics import *
 from sklearn.svm import *
 from time import perf_counter
+import seaborn as sns
 import pdb
 
 def pr4(dataset_name):
@@ -67,6 +68,11 @@ def ej2(dataset_name):
         print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")     
     tiempo_total = perf_counter() - t_inicio   
     print("Tiempo total: %.4f"%(tiempo_total))
+
+    cf_image = sns.heatmap(cf, cmap='Blues', annot=True, fmt='g')
+    figure = cf_image.get_figure()    
+    figure.savefig('Linearl_ej2_' + dataset_name + '.png'); plt.clf()
+
     print("─────────────────────────────────────────────────")
 
 def ej3(dataset_name):
@@ -99,7 +105,12 @@ def ej3(dataset_name):
         f1 = 100 * f1_score(y,z)
         print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n")   
     tiempo_total =  perf_counter() - t_inicio   
-    print("Tiempo total: %.4f"%(tiempo_total))         
+    print("Tiempo total: %.4f"%(tiempo_total))    
+
+    cf_image = sns.heatmap(cf, cmap='Blues', annot=True, fmt='g')
+    figure = cf_image.get_figure()    
+    figure.savefig('Gaussian_ej3_' + dataset_name + '.png'); plt.clf()
+
     print("─────────────────────────────────────────────────")
 
 def ej4(dataset_name):
@@ -163,15 +174,17 @@ def ej4_linear_kernel_cross_validation(dataset_name, K):
     plt.legend(); plt.grid(True)
     plt.xlabel('V'); plt.ylabel('kappa (%)')
     plt.xscale("log")
-    plt.savefig("sintonizacionL_" + dataset_name + "_K="+str(K)+".png")
-    plt.show()
+    plt.savefig("sintonizacionL_" + dataset_name + "_K="+str(K)+".png"); plt.clf()
+    #plt.show()
 
     # TEST
+    t_inicio = perf_counter()
     print("Test:")
     C = len(np.unique(y))
     mc = np.zeros([C,C])
     v_accuracy = np.zeros(K)
-
+    if C==2:
+        v_prec = []; v_rec = []; v_f1 = []
     for k in range(K):
         tx[k]=np.vstack((tx[k],vx[k]))
         ty[k]=np.concatenate((ty[k],vy[k]))
@@ -181,10 +194,26 @@ def ej4_linear_kernel_cross_validation(dataset_name, K):
         v_accuracy[k] = 100*accuracy_score(y,z)
         mc+=confusion_matrix(y,z)
 
+        if C==2:
+            prec = 100 * precision_score(y,z); rec = 100 * recall_score(y,z); f1 = 100 * f1_score(y,z)
+            v_prec.append(prec); v_rec.append(rec); v_f1.append(f1)
+
     kappa = np.mean(vkappa)
     accuracy = np.mean(v_accuracy)
     mc/=K
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}")
+
+    # Si es un problema de clasificación binaria reportamos más métricas.
+    if C==2:
+        prec =np.mean(v_prec); rec = np.mean(v_rec); f1 = np.mean(v_f1)
+        print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n") 
+
+    tiempo_test = perf_counter() - t_inicio   
+    print("Tiempo test: %.4f"%(tiempo_test))
+
+    cf_image = sns.heatmap(mc, cmap='Blues', annot=True, fmt='g')
+    figure = cf_image.get_figure()    
+    figure.savefig('ej4_' + str(K) + '_folds_Linear_' + dataset_name + '.png'); plt.clf()
     print("─────────────────────────────────────────────────")
 
 def ej4_gaussian_kernel_cross_validation(dataset_name, K):
@@ -226,18 +255,28 @@ def ej4_gaussian_kernel_cross_validation(dataset_name, K):
     print('L_mejor=%g, G_mejor=%g, kappa=%.2f%%\n'%(L_mellor, G_mellor, kappa_mellor))
 
     # Grafico de sintonizacion:
-    u=np.ravel(kappa_sintonizacion); plt.plot(u); plt.grid(True)
-    plt.title(f'dataset: {dataset_name}, L_mejor={L_mellor}, G_mejor={G_mellor} kappa={kappa_mellor:.2f}%')
-    plt.axis([1,len(u), -5, 100])
-    plt.xlabel('Configuracion'); plt.ylabel('kappa (%)')
-    plt.savefig("sintonizacion_SVC_gaussian_" + dataset_name + "_K="+str(K)+".png")
-    plt.show()
+    # u=np.ravel(kappa_sintonizacion); plt.plot(u); plt.grid(True)
+    # plt.title(f'dataset: {dataset_name}, L_mejor={L_mellor}, G_mejor={G_mellor} kappa={kappa_mellor:.2f}%')
+    # plt.axis([1,len(u), -5, 100])
+    # plt.xlabel('Configuracion'); plt.ylabel('kappa (%)')
+    # plt.savefig("sintonizacion_SVC_gaussian_" + dataset_name + "_K="+str(K)+".png")
+    # plt.show()
+
+    plt.imshow(kappa_sintonizacion);plt.colorbar()
+    plt.xlabel('Regularizacion  ($log2\lambda$)');plt.ylabel('Ancho kernel gaussiano ($log2\gamma$)')
+    plt.title(f'dataset: {dataset_name}, L_mejor= {L_mellor}, G_mejor: {G_mellor}, kappa={kappa_mellor:.2f}%')
+    #plt.show()
+    plt.savefig("sintonizacion_SVC_gaussian_" + dataset_name + "_K="+str(K)+".png"); plt.clf()
+
 
     # TEST
+    t_inicio = perf_counter()
     print("Test:")
     C = len(np.unique(y))
     mc = np.zeros([C,C])
     v_accuracy = np.zeros(K)
+    if C==2:
+        v_prec = []; v_rec = []; v_f1 = []
 
     for k in range(K):
         tx[k]=np.vstack((tx[k],vx[k]))
@@ -248,10 +287,27 @@ def ej4_gaussian_kernel_cross_validation(dataset_name, K):
         v_accuracy[k] = 100*accuracy_score(y,z)
         mc+=confusion_matrix(y,z)
 
+        if C==2:
+            prec = 100 * precision_score(y,z); rec = 100 * recall_score(y,z); f1 = 100 * f1_score(y,z)
+            v_prec.append(prec); v_rec.append(rec); v_f1.append(f1)
+
     kappa = np.mean(vkappa)
     accuracy = np.mean(v_accuracy)
     mc/=K
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}")
+
+    # Si es un problema de clasificación binaria reportamos más métricas.
+    if C==2:
+        prec =np.mean(v_prec); rec = np.mean(v_rec); f1 = np.mean(v_f1)
+        print(f"precision.: {prec:.2f}%\nrecall: {rec:.2f}%\nf1 = {f1:.2f}%\n") 
+
+    tiempo_test = perf_counter() - t_inicio   
+    print("Tiempo test: %.4f"%(tiempo_test))
+
+    cf_image = sns.heatmap(mc, cmap='Blues', annot=True, fmt='g')
+    figure = cf_image.get_figure()    
+    figure.savefig('ej4_' + str(K) + '_folds_Gaussian_' + dataset_name + '.png'); plt.clf()
+
     print("─────────────────────────────────────────────────")
 
 
