@@ -54,8 +54,6 @@ def ej4(dataset_name, dataset_train, dataset_test):
     K = 4
     [tx,ty,vx,vy,sx,sy] = crea_folds(x,y,K)
 
-    inicio_tiempo = perf_counter()
-
     #preprocesamiento
     for k in range(K):
         med=np.mean(tx[k],0); dev=np.std(tx[k],0)
@@ -64,6 +62,7 @@ def ej4(dataset_name, dataset_train, dataset_test):
         sx[k]=(sx[k]-med)/dev
 
     #sintonizacion
+    inicio_tiempo = perf_counter()
     print("Sintonizacion:")
     H=3
     IK=30
@@ -90,10 +89,11 @@ def ej4(dataset_name, dataset_train, dataset_test):
             print('%10.1f'%(100*kappa_med))
             if kappa_med>kappa_mellor:
                 kappa_mellor=kappa_med;neurons_mellor=neurons
-
+    tiempo_sintonizacion = perf_counter() - inicio_tiempo
     print(f"Mejor arquitectura: {neurons_mellor[: -1]}, kappa={100*kappa_mellor:.2f}%\n")
 
     #test
+    inicio_tiempo = perf_counter()
     print("Test:")  
     v_accuracy = np.zeros(K)
     mc = np.zeros([C,C])
@@ -106,10 +106,10 @@ def ej4(dataset_name, dataset_train, dataset_test):
         v_accuracy[k] = 100*accuracy_score(y,z)
         mc+=confusion_matrix(y,z)
 
-    tiempo_total = perf_counter() - inicio_tiempo 
+    tiempo_test = perf_counter() - inicio_tiempo 
     kappa=np.mean(vkappa); mc/=K; accuracy = np.mean(v_accuracy)
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}")
-    print(f"Tiempo total: {tiempo_total:.2f}")
+    print("Tiempo sintonizacion: %.2f, Tiempo test: %.2f, Total: %.2f" % (tiempo_sintonizacion, tiempo_test, tiempo_sintonizacion + tiempo_test))
 
     cf_image = sns.heatmap(mc, cmap='Blues')
     figure = cf_image.get_figure()    
@@ -138,8 +138,6 @@ def ej4(dataset_name, dataset_train, dataset_test):
 
     K = 4
     [tx,ty,vx,vy,sx,sy] = crea_folds(x,y,K)
-
-    inicio_tiempo = perf_counter()
     
     #preprocesamiento
     for k in range(K):
@@ -149,6 +147,7 @@ def ej4(dataset_name, dataset_train, dataset_test):
         sx[k]=(sx[k]-med)/dev
 
     #sintonizacion
+    inicio_tiempo = perf_counter()
     print("Sintonizacion:")
     IK = np.arange(5, 45, 5)
     vkappa=np.zeros(K); kappa_mellor=-np.Inf; 
@@ -169,6 +168,7 @@ def ej4(dataset_name, dataset_train, dataset_test):
             kappa_mellor = kappa_med
             neurons_mellor = i
     print(f"Mejor nº neuronas ocultas: {neurons_mellor}, kappa={100*kappa_mellor:.2f}%\n")
+    tiempo_sintonizacion = perf_counter() - inicio_tiempo
 
     # Grafico de sintonizacion:
     plt.plot(IK, kappa_sintonizacion,marker='o', label='Evolucion del kappa con IK')
@@ -179,6 +179,7 @@ def ej4(dataset_name, dataset_train, dataset_test):
     plt.show()
 
     #test
+    inicio_tiempo = perf_counter()
     print("Test:")
     v_accuracy = np.zeros(K)
     mc = np.zeros([C,C])
@@ -192,10 +193,10 @@ def ej4(dataset_name, dataset_train, dataset_test):
         v_accuracy[k] = 100*accuracy_score(y,z)
         mc+=confusion_matrix(y,z)
 
-    tiempo_total = perf_counter() - inicio_tiempo 
+    tiempo_test = perf_counter() - inicio_tiempo 
     kappa=np.mean(vkappa); mc/=K; accuracy = np.mean(v_accuracy)
     print(f"acc.: {accuracy:.2f}%\nkappa: {kappa:.2f}%\ncf = \n{mc}")
-    print(f"Tiempo total: {tiempo_total:.2f}")
+    print("Tiempo sintonizacion: %.2f, Tiempo test: %.2f, Total: %.2f" % (tiempo_sintonizacion, tiempo_test, tiempo_sintonizacion + tiempo_test))
 
     cf_image = sns.heatmap(mc, cmap='Blues')
     figure = cf_image.get_figure()    

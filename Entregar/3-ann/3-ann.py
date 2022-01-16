@@ -327,5 +327,3 @@ def ej3(dataset_name):
 # Ejecutamos
 pr3("wine.data")
 pr3("hepatitis.data")
-pr3("Coocur", '../data/trainCoocur.dat', '../data/testCoocur.dat')
-pr3("LBP", '../data/trainLBP.dat', '../data/testLBP.dat')
