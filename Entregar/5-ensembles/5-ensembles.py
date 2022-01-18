@@ -8,7 +8,7 @@ Requirements
 -Scikit-learn
 -Matplotlib
 -Seaborn (to plot confusion matrix as image)
--time
+-Time
 
 """
 
@@ -51,7 +51,7 @@ def ej2(dataset_name):
 
     # Separacion train/test
     # Ponemos stratify a True para mantener poboaciones relativas
-    Xtrain, Xtest, ytrain, ytest = train_test_split(x, y, test_size=0.5, random_state=180, stratify=y)
+    Xtrain, Xtest, ytrain, ytest = train_test_split(x, y, test_size=0.4, random_state=180, stratify=y)
 
     # Preprocesamiento
     media = np.mean(Xtrain); dv = np.std(Xtrain)
