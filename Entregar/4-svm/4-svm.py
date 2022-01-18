@@ -315,7 +315,5 @@ def ej4_gaussian_kernel_cross_validation(dataset_name, K):
 # Ejecutamos
 pr4("wine.data")
 pr4("hepatitis.data")
-#pr4("Coocur", '../data/trainCoocur.dat', '../data/testCoocur.dat')
-#pr4("LBP", '../data/trainLBP.dat', '../data/testLBP.dat')
 
 
