@@ -1,0 +1,249 @@
+=============================================
+   Ejecucion ej4 sobre hepatitis.data dataset!
+=============================================
+
+=============================================
+   Sintonizacion1 sobre hepatitis.data dataset!
+=============================================
+
+Best parameters set found on development set:
+{'max_features': 5, 'n_estimators': 120}
+Grid scores on development set:
+0.738 (+/-0.135) for {'max_features': 3, 'n_estimators': 40}
+0.701 (+/-0.062) for {'max_features': 3, 'n_estimators': 60}
+0.734 (+/-0.158) for {'max_features': 3, 'n_estimators': 80}
+0.749 (+/-0.132) for {'max_features': 3, 'n_estimators': 100}
+0.749 (+/-0.132) for {'max_features': 3, 'n_estimators': 120}
+0.768 (+/-0.193) for {'max_features': 3, 'n_estimators': 140}
+0.734 (+/-0.158) for {'max_features': 3, 'n_estimators': 160}
+0.749 (+/-0.132) for {'max_features': 3, 'n_estimators': 180}
+0.749 (+/-0.132) for {'max_features': 3, 'n_estimators': 200}
+0.733 (+/-0.115) for {'max_features': 5, 'n_estimators': 40}
+0.750 (+/-0.163) for {'max_features': 5, 'n_estimators': 60}
+0.735 (+/-0.156) for {'max_features': 5, 'n_estimators': 80}
+0.747 (+/-0.076) for {'max_features': 5, 'n_estimators': 100}
+0.770 (+/-0.146) for {'max_features': 5, 'n_estimators': 120}
+0.744 (+/-0.209) for {'max_features': 5, 'n_estimators': 140}
+0.769 (+/-0.098) for {'max_features': 5, 'n_estimators': 160}
+0.722 (+/-0.125) for {'max_features': 5, 'n_estimators': 180}
+0.738 (+/-0.137) for {'max_features': 5, 'n_estimators': 200}
+0.635 (+/-0.047) for {'max_features': 7, 'n_estimators': 40}
+0.661 (+/-0.139) for {'max_features': 7, 'n_estimators': 60}
+0.739 (+/-0.204) for {'max_features': 7, 'n_estimators': 80}
+0.725 (+/-0.220) for {'max_features': 7, 'n_estimators': 100}
+0.725 (+/-0.220) for {'max_features': 7, 'n_estimators': 120}
+0.725 (+/-0.220) for {'max_features': 7, 'n_estimators': 140}
+0.740 (+/-0.166) for {'max_features': 7, 'n_estimators': 160}
+0.740 (+/-0.166) for {'max_features': 7, 'n_estimators': 180}
+0.710 (+/-0.172) for {'max_features': 7, 'n_estimators': 200}
+0.684 (+/-0.174) for {'max_features': 9, 'n_estimators': 40}
+0.710 (+/-0.172) for {'max_features': 9, 'n_estimators': 60}
+0.710 (+/-0.172) for {'max_features': 9, 'n_estimators': 80}
+0.710 (+/-0.172) for {'max_features': 9, 'n_estimators': 100}
+0.698 (+/-0.195) for {'max_features': 9, 'n_estimators': 120}
+0.710 (+/-0.172) for {'max_features': 9, 'n_estimators': 140}
+0.710 (+/-0.172) for {'max_features': 9, 'n_estimators': 160}
+0.710 (+/-0.172) for {'max_features': 9, 'n_estimators': 180}
+0.710 (+/-0.172) for {'max_features': 9, 'n_estimators': 200}
+0.713 (+/-0.167) for {'max_features': 11, 'n_estimators': 40}
+0.698 (+/-0.195) for {'max_features': 11, 'n_estimators': 60}
+0.703 (+/-0.215) for {'max_features': 11, 'n_estimators': 80}
+0.710 (+/-0.172) for {'max_features': 11, 'n_estimators': 100}
+0.726 (+/-0.158) for {'max_features': 11, 'n_estimators': 120}
+0.740 (+/-0.166) for {'max_features': 11, 'n_estimators': 140}
+0.740 (+/-0.166) for {'max_features': 11, 'n_estimators': 160}
+0.740 (+/-0.166) for {'max_features': 11, 'n_estimators': 180}
+0.740 (+/-0.166) for {'max_features': 11, 'n_estimators': 200}
+0.731 (+/-0.209) for {'max_features': 13, 'n_estimators': 40}
+0.713 (+/-0.167) for {'max_features': 13, 'n_estimators': 60}
+0.743 (+/-0.198) for {'max_features': 13, 'n_estimators': 80}
+0.726 (+/-0.158) for {'max_features': 13, 'n_estimators': 100}
+0.726 (+/-0.158) for {'max_features': 13, 'n_estimators': 120}
+0.726 (+/-0.158) for {'max_features': 13, 'n_estimators': 140}
+0.726 (+/-0.158) for {'max_features': 13, 'n_estimators': 160}
+0.726 (+/-0.158) for {'max_features': 13, 'n_estimators': 180}
+0.698 (+/-0.195) for {'max_features': 13, 'n_estimators': 200}
+
+acc. = 84.62, kappa=48.00
+=============================================
+   Sintonizacion1 sobre hepatitis.data dataset!
+=============================================
+
+Best parameters set found on development set:
+{'n_estimators': 80}
+Grid scores on development set:
+0.622 (+/-0.240) for {'n_estimators': 40}
+0.687 (+/-0.202) for {'n_estimators': 60}
+0.741 (+/-0.194) for {'n_estimators': 80}
+0.631 (+/-0.239) for {'n_estimators': 100}
+0.645 (+/-0.266) for {'n_estimators': 120}
+0.645 (+/-0.266) for {'n_estimators': 140}
+0.629 (+/-0.099) for {'n_estimators': 160}
+0.629 (+/-0.099) for {'n_estimators': 180}
+0.607 (+/-0.250) for {'n_estimators': 200}
+
+acc. = 80.77, kappa=36.62
+=============================================
+   Sintonizacion2 sobre hepatitis.data dataset!
+=============================================
+
+Best parameters set found on development set:
+{'max_features': 3, 'n_estimators': 60}
+Grid scores on development set:
+0.728 (+/-0.158) for {'max_features': 3, 'n_estimators': 40}
+0.755 (+/-0.165) for {'max_features': 3, 'n_estimators': 60}
+0.748 (+/-0.154) for {'max_features': 3, 'n_estimators': 80}
+0.715 (+/-0.270) for {'max_features': 3, 'n_estimators': 100}
+0.715 (+/-0.270) for {'max_features': 3, 'n_estimators': 120}
+0.745 (+/-0.150) for {'max_features': 3, 'n_estimators': 140}
+0.722 (+/-0.278) for {'max_features': 3, 'n_estimators': 160}
+0.714 (+/-0.286) for {'max_features': 3, 'n_estimators': 180}
+0.721 (+/-0.293) for {'max_features': 3, 'n_estimators': 200}
+0.733 (+/-0.189) for {'max_features': 5, 'n_estimators': 40}
+0.716 (+/-0.127) for {'max_features': 5, 'n_estimators': 60}
+0.709 (+/-0.116) for {'max_features': 5, 'n_estimators': 80}
+0.717 (+/-0.163) for {'max_features': 5, 'n_estimators': 100}
+0.681 (+/-0.162) for {'max_features': 5, 'n_estimators': 120}
+0.696 (+/-0.193) for {'max_features': 5, 'n_estimators': 140}
+0.703 (+/-0.210) for {'max_features': 5, 'n_estimators': 160}
+0.703 (+/-0.210) for {'max_features': 5, 'n_estimators': 180}
+0.715 (+/-0.146) for {'max_features': 5, 'n_estimators': 200}
+0.711 (+/-0.138) for {'max_features': 7, 'n_estimators': 40}
+0.728 (+/-0.142) for {'max_features': 7, 'n_estimators': 60}
+0.735 (+/-0.148) for {'max_features': 7, 'n_estimators': 80}
+0.711 (+/-0.143) for {'max_features': 7, 'n_estimators': 100}
+0.711 (+/-0.118) for {'max_features': 7, 'n_estimators': 120}
+0.702 (+/-0.121) for {'max_features': 7, 'n_estimators': 140}
+0.717 (+/-0.152) for {'max_features': 7, 'n_estimators': 160}
+0.717 (+/-0.152) for {'max_features': 7, 'n_estimators': 180}
+0.743 (+/-0.158) for {'max_features': 7, 'n_estimators': 200}
+0.654 (+/-0.231) for {'max_features': 9, 'n_estimators': 40}
+0.688 (+/-0.122) for {'max_features': 9, 'n_estimators': 60}
+0.692 (+/-0.162) for {'max_features': 9, 'n_estimators': 80}
+0.697 (+/-0.159) for {'max_features': 9, 'n_estimators': 100}
+0.678 (+/-0.181) for {'max_features': 9, 'n_estimators': 120}
+0.678 (+/-0.181) for {'max_features': 9, 'n_estimators': 140}
+0.678 (+/-0.181) for {'max_features': 9, 'n_estimators': 160}
+0.704 (+/-0.147) for {'max_features': 9, 'n_estimators': 180}
+0.704 (+/-0.152) for {'max_features': 9, 'n_estimators': 200}
+0.677 (+/-0.126) for {'max_features': 11, 'n_estimators': 40}
+0.708 (+/-0.164) for {'max_features': 11, 'n_estimators': 60}
+0.702 (+/-0.160) for {'max_features': 11, 'n_estimators': 80}
+0.697 (+/-0.133) for {'max_features': 11, 'n_estimators': 100}
+0.683 (+/-0.107) for {'max_features': 11, 'n_estimators': 120}
+0.683 (+/-0.139) for {'max_features': 11, 'n_estimators': 140}
+0.696 (+/-0.140) for {'max_features': 11, 'n_estimators': 160}
+0.711 (+/-0.143) for {'max_features': 11, 'n_estimators': 180}
+0.722 (+/-0.163) for {'max_features': 11, 'n_estimators': 200}
+0.678 (+/-0.246) for {'max_features': 13, 'n_estimators': 40}
+0.671 (+/-0.242) for {'max_features': 13, 'n_estimators': 60}
+0.708 (+/-0.119) for {'max_features': 13, 'n_estimators': 80}
+0.709 (+/-0.155) for {'max_features': 13, 'n_estimators': 100}
+0.709 (+/-0.155) for {'max_features': 13, 'n_estimators': 120}
+0.708 (+/-0.119) for {'max_features': 13, 'n_estimators': 140}
+0.702 (+/-0.120) for {'max_features': 13, 'n_estimators': 160}
+0.714 (+/-0.123) for {'max_features': 13, 'n_estimators': 180}
+0.716 (+/-0.127) for {'max_features': 13, 'n_estimators': 200}
+
+acc. = 84.52, kappa=45.13
+=============================================
+   Sintonizacion2 sobre hepatitis.data dataset!
+=============================================
+
+Best parameters set found on development set:
+{'n_estimators': 180}
+Grid scores on development set:
+0.732 (+/-0.084) for {'n_estimators': 40}
+0.748 (+/-0.109) for {'n_estimators': 60}
+0.749 (+/-0.123) for {'n_estimators': 80}
+0.735 (+/-0.127) for {'n_estimators': 100}
+0.705 (+/-0.126) for {'n_estimators': 120}
+0.748 (+/-0.109) for {'n_estimators': 140}
+0.728 (+/-0.136) for {'n_estimators': 160}
+0.764 (+/-0.072) for {'n_estimators': 180}
+0.759 (+/-0.159) for {'n_estimators': 200}
+
+acc. = 81.94, kappa=43.56
+=============================================
+   Sintonizacion3 sobre hepatitis.data dataset!
+=============================================
+
+Sintonizacion:
+#estimators max features   kappa(%)
+        40          3      32.08%
+        40          5      36.83%
+        40          7      30.16%
+        40          9      45.58%
+        40         11      35.55%
+        40         13      41.35%
+        60          3      46.60%
+        60          5      32.53%
+        60          7      34.02%
+        60          9      37.18%
+        60         11      30.11%
+        60         13      43.83%
+        80          3      35.46%
+        80          5      29.87%
+        80          7      33.75%
+        80          9      40.17%
+        80         11      32.96%
+        80         13      42.77%
+       100          3      31.23%
+       100          5      30.11%
+       100          7      32.30%
+       100          9      25.82%
+       100         11      36.59%
+       100         13      35.07%
+       120          3      35.74%
+       120          5      31.37%
+       120          7      29.89%
+       120          9      29.89%
+       120         11      31.94%
+       120         13      35.58%
+       140          3      32.76%
+       140          5      25.76%
+       140          7      37.75%
+       140          9      30.89%
+       140         11      34.70%
+       140         13      37.55%
+       160          3      32.76%
+       160          5      25.76%
+       160          7      37.75%
+       160          9      30.89%
+       160         11      34.92%
+       160         13      36.59%
+       180          3      38.35%
+       180          5      25.76%
+       180          7      32.07%
+       180          9      30.89%
+       180         11      31.94%
+       180         13      39.19%
+       200          3      35.36%
+       200          5      25.76%
+       200          7      32.07%
+       200          9      26.51%
+       200         11      33.60%
+       200         13      36.78%
+Best parameters: #estimators=60 max features=3 kappa=46.60%
+Test:
+acc.: 83.54%
+kappa: 44.10%
+cf =
+[[ 4.    4.  ]
+ [ 2.75 30.25]]
+=============================================
+   Sintonizacion3 sobre hepatitis.data dataset!
+=============================================
+
+Sintonizacion:
+#estimators max features   kappa(%)
+        40      29.86%
+        60      27.84%
+        80      34.88%
+       100      37.00%
+       120      35.74%
+       140      38.10%
+       160      37.00%
+       180      37.00%
+       200      37.00%
+Traceback (most recent call last):
