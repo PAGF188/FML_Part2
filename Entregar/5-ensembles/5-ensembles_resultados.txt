@@ -1,0 +1,93 @@
+=============================================
+   Ejecucion pr3 sobre hepatitis.data dataset!
+=============================================
+
+EJERCICIO 2 (RF y AdaBoost, con separacion tran/test):
+Resultados RF:
+Time (s): 0.06084669999999992
+acc.: 84.62%
+kappa: 48.00%
+cf =
+[[ 8  8]
+ [ 4 58]]
+
+precision.: 87.88%
+recall: 93.55%
+f1 = 90.62%
+
+─────────────────────────────────────────────────
+Resultados AdaBoost:
+Time (s): 0.06481950000000003
+acc.: 82.05%
+kappa: 42.28%
+cf =
+[[ 8  8]
+ [ 6 56]]
+
+precision.: 87.50%
+recall: 90.32%
+f1 = 88.89%
+
+
+=============================================
+   Ejecucion pr3 sobre wine.data dataset!
+=============================================
+
+EJERCICIO 3 (RF y AdaBoost, cross validation (and n_estimator tuning in ADABOOST)):
+
+Resultados RF
+
+k=4, acc. = 97.75, kappa=96.60, time=0.2507
+k=5, acc. = 98.31, kappa=97.45, time=0.3140
+k=10, acc. = 97.19, kappa=95.74, time=0.6326
+─────────────────────────────────────────────────
+Best parameters set found on development set:
+{'n_estimators': 100}
+Grid scores on development set:
+0.978 (+/-0.041) for {'n_estimators': 40}
+0.979 (+/-0.041) for {'n_estimators': 60}
+0.978 (+/-0.041) for {'n_estimators': 80}
+0.984 (+/-0.044) for {'n_estimators': 100}
+0.973 (+/-0.048) for {'n_estimators': 120}
+0.973 (+/-0.048) for {'n_estimators': 140}
+0.973 (+/-0.048) for {'n_estimators': 160}
+0.973 (+/-0.048) for {'n_estimators': 180}
+0.973 (+/-0.048) for {'n_estimators': 200}
+
+Resultados ADA
+
+k=4, acc. = 95.51, kappa=93.21, time=13.3938
+k=5, acc. = 97.75, kappa=96.59, time=17.1853
+k=10, acc. = 98.31, kappa=97.45, time=34.7962
+─────────────────────────────────────────────────
+=============================================
+   Ejecucion pr3 sobre hepatitis.data dataset!
+=============================================
+
+EJERCICIO 3 (RF y AdaBoost, cross validation (and n_estimator tuning in ADABOOST)):
+
+Resultados RF
+
+k=4, acc. = 83.23, kappa=42.11, time=0.2490
+k=5, acc. = 85.16, kappa=51.93, time=0.3110
+k=10, acc. = 81.94, kappa=40.76, time=0.6379
+─────────────────────────────────────────────────
+Best parameters set found on development set:
+{'n_estimators': 60}
+Grid scores on development set:
+0.668 (+/-0.222) for {'n_estimators': 40}
+0.709 (+/-0.144) for {'n_estimators': 60}
+0.695 (+/-0.260) for {'n_estimators': 80}
+0.671 (+/-0.267) for {'n_estimators': 100}
+0.664 (+/-0.253) for {'n_estimators': 120}
+0.693 (+/-0.251) for {'n_estimators': 140}
+0.673 (+/-0.265) for {'n_estimators': 160}
+0.667 (+/-0.256) for {'n_estimators': 180}
+0.686 (+/-0.289) for {'n_estimators': 200}
+
+Resultados ADA
+
+k=4, acc. = 83.87, kappa=49.01, time=13.4856
+k=5, acc. = 82.58, kappa=43.58, time=16.9057
+k=10, acc. = 78.71, kappa=27.48, time=34.1159
+─────────────────────────────────────────────────
