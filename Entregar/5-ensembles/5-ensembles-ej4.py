@@ -24,6 +24,34 @@ from time import perf_counter
 import seaborn as sns
 import pdb      
 
+def pintar_grafico_sintonizacion(model_name, tunedParameters, dataset_name, means, model, sintonizacion_n):
+     # Pintar grafico de sintonizacion
+    if model_name=='RF':
+        len_max_features = len(tunedParameters['max_features'])
+        len_estimadores = len(tunedParameters['n_estimators'])
+        v_f_tuning = np.zeros((len_max_features, len_estimadores))
+        for i, f1 in enumerate(means):
+            i_aux, j_aux = np.unravel_index(i, (len_max_features,len_estimadores))
+            v_f_tuning[i_aux,j_aux] = f1
+
+        plt.clf()
+        plt.imshow(v_f_tuning); plt.colorbar()
+        plt.ylabel('max features');plt.xlabel('no. estimators')
+        plt.title(f'RF tuning, {dataset_name}, mejor= {model.best_params_["n_estimators"]}, {model.best_params_["max_features"]}')
+        plt.yticks(list(range(0, len_max_features)), tunedParameters['max_features'])
+        plt.xticks(list(range(0, len_estimadores)), tunedParameters['n_estimators'])
+        #plt.show()
+        plt.savefig("ej4_RF_sintonizacion1_" + dataset_name + ".png"); plt.clf()
+    elif model_name=='ADA':
+        plt.clf()
+        plt.plot(tunedParameters['n_estimators'], means, marker='o', label='Evolucion f1-score con n_estimadores')
+        plt.title(f'AdaBoost tuning, {dataset_name}, mejor= {model.best_params_["n_estimators"]}')
+        plt.xticks(tunedParameters['n_estimators']); plt.legend(); plt.grid(True)
+        plt.xlabel('no. estimadores'); plt.ylabel('f1-score')
+        plt.savefig("ej4_ADA_sintonizacion"+ sintonizacion_n + "_" + dataset_name + ".png")
+        #plt.show(); 
+        plt.clf()
+
 
 def sintonizacion1(dataset_name, model_used, x, y, model_name):
     """
@@ -64,6 +92,9 @@ def sintonizacion1(dataset_name, model_used, x, y, model_name):
         print("%0.3f (+/-%0.03f) for %r" % (mean, std * 2, params))
     print()
 
+    # Pintamos grafico sintonizacion
+    pintar_grafico_sintonizacion(model_name, tunedParameters, dataset_name, means, model, "1")
+
     # Test
     Xtest=(Xtest-mx)/stdx
     # Compute the classifier prediction on the test set
@@ -77,7 +108,7 @@ def sintonizacion1(dataset_name, model_used, x, y, model_name):
     plt.clf()
     cf_image = sns.heatmap(cf, cmap='Blues', annot=True, fmt='g')
     figure = cf_image.get_figure()    
-    figure.savefig('ej4_sint1_'+ model_name + "_" + dataset_name + '.png'); plt.clf()
+    figure.savefig('ej4_cm_sint1'+ model_name + "_" + dataset_name + '.png'); plt.clf()
 
 
 def sintonizacion2(dataset_name, model_used, x, y, model_name):
@@ -113,6 +144,9 @@ def sintonizacion2(dataset_name, model_used, x, y, model_name):
         print("%0.3f (+/-%0.03f) for %r" % (mean, std * 2, params))
     print()
 
+    # Pintamos gráfico sintonizacion
+    pintar_grafico_sintonizacion(model_name, tunedParameters, dataset_name, means, model, "2")
+
     # 4-fold cross validation-------------------------------------
     z=cross_val_predict(model, x, y, cv=4)
     acc = accuracy_score(y,z) * 100
@@ -124,7 +158,7 @@ def sintonizacion2(dataset_name, model_used, x, y, model_name):
     plt.clf()
     cf_image = sns.heatmap(cf, cmap='Blues', annot=True, fmt='g')
     figure = cf_image.get_figure()    
-    figure.savefig('ej4_sint2_'+ model_name + "_" + dataset_name + '.png'); plt.clf()
+    figure.savefig('ej4_cm_sint2'+ model_name + "_" + dataset_name + '.png'); plt.clf()
 
 def sintonizacion3(dataset_name, x, y, model_name):
 
@@ -154,22 +188,33 @@ def sintonizacion3(dataset_name, x, y, model_name):
     if model_name == 'RF':
         vne=list(range(40, 220, 20)) # number of estimators
         vmf=[3,5,7,9,11,13] # max features
+        kappa_sintonizacion=np.zeros((len(vmf), len(vne))); 
         vkappa=np.zeros(K);kappa_best=-np.Inf
 
         print('%10s %10s %10s'%('#estimators','max features','kappa(%)'))
-        for ne in vne:
-            for mf in vmf:
+        for i,mf in enumerate(vmf):
+            for j,ne in enumerate(vne):
                 for k in range(K):
                     model=RandomForestClassifier(n_estimators=ne, max_features=mf,random_state=0).fit(tx[k],ty[k])
                     z=model.predict(vx[k])
                     vkappa[k]=cohen_kappa_score(vy[k],z)
                 kappa_mean=np.mean(vkappa)
+                kappa_sintonizacion[i,j] = kappa_mean
                 print('%10i %10i %10.2f%%'%(ne,mf,100*kappa_mean))
                 if kappa_mean>kappa_best:
                     kappa_best=kappa_mean; ne_best=ne; mf_best=mf
 
         print('Best parameters: #estimators=%i max features=%i kappa=%.2f%%'%(ne_best,mf_best,100*kappa_best))
         
+        # Grafico de sintonizacion:
+        plt.clf()
+        plt.imshow(kappa_sintonizacion); plt.colorbar()
+        plt.ylabel('max features');plt.xlabel('no. estimators')
+        plt.title(f'RF tuning, {dataset_name}, mejor= {mf_best}, {ne_best}')
+        plt.yticks(list(range(0, len(vmf))), vmf)
+        plt.xticks(list(range(0, len(vne))), vne)
+        #plt.show()
+        plt.savefig("ej4_RF_sintonizacion3_" + dataset_name + ".png"); plt.clf()
 
         print("Test:")
         C = len(np.unique(y))
@@ -192,14 +237,14 @@ def sintonizacion3(dataset_name, x, y, model_name):
 
         cf_image = sns.heatmap(mc, cmap='Blues', annot=True, fmt='g')
         figure = cf_image.get_figure()    
-        figure.savefig('ej4_sint3_'+ model_name + "_" + dataset_name + '.png'); plt.clf()
+        figure.savefig('ej4_cm_sint3'+ model_name + "_" + dataset_name + '.png'); plt.clf()
 
 
     ### Para ADA
     elif model_name == 'ADA':
         vne=list(range(40, 220, 20)) # number of estimators
         vkappa=np.zeros(K);kappa_best=-np.Inf
-
+        kappa_sintonizacion = []
         print('%10s %10s %10s'%('#estimators','max features','kappa(%)'))
         for ne in vne:
             for k in range(K):
@@ -207,12 +252,21 @@ def sintonizacion3(dataset_name, x, y, model_name):
                 z=model.predict(vx[k])
                 vkappa[k]=cohen_kappa_score(vy[k],z)
             kappa_mean=np.mean(vkappa)
+            kappa_sintonizacion.append(kappa_mean)
             print('%10i %10.2f%%'%(ne,100*kappa_mean))
             if kappa_mean>kappa_best:
                 kappa_best=kappa_mean; ne_best=ne
 
         print('Best parameters: #estimators=%i kappa=%.2f%%'%(ne_best,100*kappa_best))
         
+        # Grafico de sintonizacion: 
+        plt.clf()
+        plt.plot(vne, kappa_sintonizacion, marker='o', label='kappa vs no. estimators')
+        plt.title(f'AdaBoost tuning, {dataset_name}, mejor= {model.best_params_["n_estimators"]}')
+        plt.legend(); plt.grid(True)
+        plt.xlabel('no. estimadores'); plt.ylabel('kappa')
+        plt.savefig("ej4_ADA_sintonizacion3_" + dataset_name + ".png")
+        #plt.show()
 
         print("Test:")
         C = len(np.unique(y))
@@ -235,7 +289,7 @@ def sintonizacion3(dataset_name, x, y, model_name):
 
         cf_image = sns.heatmap(mc, cmap='Blues', annot=True, fmt='g')
         figure = cf_image.get_figure()    
-        figure.savefig('ej4_sint3_'+ model_name + "_" + dataset_name + '.png'); plt.clf()
+        figure.savefig('ej4_cm_sint3'+ model_name + "_" + dataset_name + '.png'); plt.clf()
 
 
 
@@ -262,6 +316,7 @@ def ej4(dataset_name):
 
 
 ej4("hepatitis.data")
+ej4("wine.data")
 
     
 
