@@ -6,7 +6,7 @@ from crea_folds import crea_folds
 
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+from time import perf_counter
 
 def ej5_2(dataset_name, dataset_train, dataset_test):
    # Carga de datos
@@ -40,7 +40,7 @@ def ej5_2(dataset_name, dataset_train, dataset_test):
     C = len(np.unique(y))
 
     mc = np.zeros([C,C]); v_kappa=np.zeros(K_); v_accuracy = np.zeros(K_)
-
+    t0 = perf_counter()
     for k in range(K_):
         modelo = LinearDiscriminantAnalysis().fit(tx[k],ty[k])
         z = modelo.predict(sx[k]); y=sy[k]
@@ -48,6 +48,7 @@ def ej5_2(dataset_name, dataset_train, dataset_test):
         v_accuracy[k] = 100*accuracy_score(y,z)
         mc+=confusion_matrix(y,z)
 
+    print(f"Tiempo: {perf_counter()- t0}")
     kappa = np.mean(v_kappa); accuracy = np.mean(v_accuracy); mc/=K_
 
     # cf_image = sns.heatmap(mc, cmap='Blues')

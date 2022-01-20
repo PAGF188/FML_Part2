@@ -41,7 +41,7 @@ def pintar_grafico_sintonizacion(model_name, tunedParameters, dataset_name, mean
         plt.yticks(list(range(0, len_max_features)), tunedParameters['max_features'])
         plt.xticks(list(range(0, len_estimadores)), tunedParameters['n_estimators'])
         #plt.show()
-        plt.savefig("ej4_RF_sintonizacion1_" + dataset_name + ".png"); plt.clf()
+        plt.savefig("ej4_RF_sintonizacion"+ sintonizacion_n + "_" + dataset_name + ".png")
     elif model_name=='ADA':
         plt.clf()
         plt.plot(tunedParameters['n_estimators'], means, marker='o', label='Evolucion f1-score con n_estimadores')
@@ -187,7 +187,7 @@ def sintonizacion3(dataset_name, x, y, model_name):
     # Dependiendo de RF o ADABOOST sintonizamos unos u otros parametros
     if model_name == 'RF':
         vne=list(range(40, 220, 20)) # number of estimators
-        vmf=[3,5,7,9,11,13] # max features
+        vmf=[3,5,7,9] # vmf=[3,5,7,9, 11]
         kappa_sintonizacion=np.zeros((len(vmf), len(vne))); 
         vkappa=np.zeros(K);kappa_best=-np.Inf
 
@@ -221,6 +221,7 @@ def sintonizacion3(dataset_name, x, y, model_name):
         mc = np.zeros([C,C])
         v_accuracy = np.zeros(K)
 
+        t0 = perf_counter()
         for k in range(K):
             tx[k]=np.vstack((tx[k],vx[k]))
             ty[k]=np.concatenate((ty[k],vy[k]))
@@ -230,6 +231,7 @@ def sintonizacion3(dataset_name, x, y, model_name):
             v_accuracy[k] = 100*accuracy_score(y,z)
             mc+=confusion_matrix(y,z)
 
+        print(f"tiempo: {perf_counter() - t0}")
         kappa = np.mean(vkappa)
         accuracy = np.mean(v_accuracy)
         mc/=K
@@ -245,7 +247,7 @@ def sintonizacion3(dataset_name, x, y, model_name):
         vne=list(range(40, 220, 20)) # number of estimators
         vkappa=np.zeros(K);kappa_best=-np.Inf
         kappa_sintonizacion = []
-        print('%10s %10s %10s'%('#estimators','max features','kappa(%)'))
+        print('%10s %10s'%('#estimators','kappa(%)'))
         for ne in vne:
             for k in range(K):
                 model=AdaBoostClassifier(n_estimators=ne, random_state=0).fit(tx[k],ty[k])
@@ -262,7 +264,7 @@ def sintonizacion3(dataset_name, x, y, model_name):
         # Grafico de sintonizacion: 
         plt.clf()
         plt.plot(vne, kappa_sintonizacion, marker='o', label='kappa vs no. estimators')
-        plt.title(f'AdaBoost tuning, {dataset_name}, mejor= {model.best_params_["n_estimators"]}')
+        plt.title(f'AdaBoost tuning, {dataset_name}, mejor= {ne_best}')
         plt.legend(); plt.grid(True)
         plt.xlabel('no. estimadores'); plt.ylabel('kappa')
         plt.savefig("ej4_ADA_sintonizacion3_" + dataset_name + ".png")
@@ -314,10 +316,33 @@ def ej4(dataset_name):
     sintonizacion3(dataset_name, x, y, 'ADA')
     
 
+def ej5(dataset_name, dataset_train, dataset_test):
+    
+    print("=============================================")
+    print(f"   Ejecucion ej5 sobre {dataset_name} dataset!")
+    print("=============================================\n")
 
-ej4("hepatitis.data")
-ej4("wine.data")
+    # Carga de datos
+    data_train = np.loadtxt(dataset_train)
+    y_train = data_train[:,-1]
+    x_train = data_train[:,0:-1]
 
+    data_test = np.loadtxt(dataset_test)
+    y_test = data_test[:,-1]
+    x_test = data_test[:,0:-1]
+
+    # Juntamos train/test sets para cross-validation
+    x = np.concatenate([x_train,x_test],axis=0)
+    y = np.concatenate([y_train,y_test])
+    C = len(np.unique(y))
+
+    sintonizacion3(dataset_name, x, y, 'RF')
+
+#ej4("hepatitis.data")
+#ej4("wine.data")
+
+ej5("Coocur", '../data/trainCoocur.dat', '../data/testCoocur.dat')
+ej5("LBP", '../data/trainLBP.dat', '../data/testLBP.dat')
     
 
 
